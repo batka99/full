@@ -76,85 +76,6 @@ function Qr() {
 
    
 
-    const getTest = () => {
-      const token = localStorage.getItem("tokenToData")
-      axios.post("https://vending-merchant.com/api/v1/qpay/invoice").then((resonse) =>{console.log(resonse)})
-    }
-
-    const checkInv = ()=>{
-      axios.post("https://merchant.qpay.mn/v2/invoice",
-      {body: JSON.stringify(
-        {
-            "invoice_code": "VOLT_SYSTEM_INVOICE",
-            "sender_invoice_no": "123455678",
-            "invoice_receiver_code": "83",
-            "sender_branch_code":"BRANCH1",
-            "invoice_description": "Order No1311 200.00",
-            "enable_expiry":"false",
-            "allow_partial": false,
-            "minimum_amount": null,
-            "allow_exceed": false,
-            "maximum_amount": null,
-            "amount": 200,
-            "callback_url": "https://bd5492c3ee85.ngrok.io/payments?payment_id=12345678",
-            "sender_staff_code": "online",
-            "note":null,
-            "invoice_receiver_data": {
-                "register": "UZ96021105",
-                "name": "Ganzul",
-                "email": "test@gmail.com",
-                "phone": "88614450"
-            },
-            "lines": [
-                {
-                    "tax_product_code": "6401",
-                    "line_description": " Order No1311 200.00 .",
-                    "line_quantity": "1.00",
-                    "line_unit_price": 999999,
-                    "note": "-.",
-                    "discounts": [
-                        {
-                            "discount_code": "NONE",
-                            "description": " discounts",
-                            "amount": 10,
-                            "note": " discounts"
-                        }
-                    ],
-                    "surcharges": [
-                        {
-                            "surcharge_code": "NONE",
-                            "description": "Хүргэлтийн зардал",
-                            "amount": 10,
-                            "note": " Хүргэлт"
-                        }
-                    ],
-                    "taxes": [
-                        {
-                            "tax_code": "VAT",
-                            "description": "НӨАТ",
-                            "amount": 0,
-                            "note": " НӨАТ"
-                        }
-                    ]
-                }
-            ]
-        }
- 
-)},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI5ZmMwOTI2Yy1jYTkxLTRlZWEtOTdjNy0zYmZiMWI0NmJmMTciLCJzZXNzaW9uX2lkIjoid2prOWljNDlJS1RCX2FiUW4xNExubks2cE1yVzNsUF8iLCJpYXQiOjE2NTk2NDE4NTEsImV4cCI6MzMxOTM3MDEwMn0.gvWmtOqI2NA3PU_DFGQrU2JZeM59CrrlYNY43VCo_0o`
-    },
-      }
-      
-      
-      
-      ).then((resonse) =>{console.log(resonse)})
-
-
-    }
-
 
     const getInvoice = () =>{
       
@@ -182,8 +103,6 @@ function Qr() {
       } }, {
          
       }).then((response)=> {
-        console.log(response)
-        console.log(response.data)
         setInvoice(response.data.invoice_id)
         Swal.fire({
           
@@ -315,7 +234,6 @@ function Qr() {
                 <div className="card text-center " style={{borderRadius: "10px"}}>
                   <button  onClick={getInvoice} className="btn text-white m-2" style={{ borderRadius: "10px", background: "#28559A",  }}>Төлбөр төлөх</button>  
                 </div>
-                <button onClick={checkInv}>test</button>
 
         </div> 
         <div>{home ? <Navigate to="/"/> : ""}</div>     
