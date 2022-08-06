@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <Online>
+    {/* <Online> */}
       <UserStore>
         <QrStore>
           <ServiceStore>
@@ -24,16 +24,16 @@ root.render(
           </ServiceStore>
         </QrStore>
       </UserStore>
-    </Online>
-    <Offline>
-          <div className="col-12 d-flex justify-content-center align-items-center vh-100">
+    {/* </Online> */}
+    {/* <Offline> */}
+          {/* <div className="col-12 d-flex justify-content-center align-items-center vh-100">
             <FontAwesomeIcon 
             icon={faTriangleExclamation}
             className="mr-2 ml-2"
             size="5x" />
             <h5 className='ml-2' > Уучлаарай алдаа гарсан байна</h5>
-          </div>
-    </Offline>  
+          </div> */}
+    {/* </Offline>   */}
     </BrowserRouter>
   </React.StrictMode>
 );

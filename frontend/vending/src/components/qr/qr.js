@@ -3,7 +3,7 @@ import axios from "axios";
 import {Link, useParams, Navigate} from "react-router-dom"
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { SpinnerRoundFilled } from 'spinners-react';
-import { getDatabase, ref, set, get, child, onValue, update } from "firebase/database";
+import { getDatabase, ref, set, onValue, update } from "firebase/database";
 import Swal from 'sweetalert2'
 import UserContext from "../context/userContext";
 
@@ -17,7 +17,7 @@ function Qr() {
 
     const [backendData, setBackendData] = useState([])
     const [invoice, setInvoice] = useState()
-    const [status, setStatus] = useState(false)
+    const [status, setStatus] = useState()
     const {productId} = useParams()
     const ctxUser = useContext(UserContext)
     // const [home, setHome] = useState(Date.now());
@@ -174,10 +174,21 @@ function Qr() {
         const db = getDatabase();
         const refUrl = ref(db, `data/${ctxUser.state.userId}/product/${productId}`)
         
+        
         onValue(refUrl, (snapshot) => {
           const data = snapshot.val();
           setBackendData(data)
         });
+
+        const checkVal = ref(db, `data/${ctxUser.state.userId}/check/checked`)
+        
+        
+        onValue(checkVal, (snapshot) => {
+          const checkedData = snapshot.val();
+          setStatus(checkedData)
+        });
+
+     
 
     }, []);
 
@@ -185,6 +196,9 @@ function Qr() {
     return ( 
     <div > 
       <div className="container">
+        <div>
+     
+        </div>
       <nav className="navbar navbar-light bg-light justify-content-between mt-4 bg-white">
             <div className="card" style={{borderRadius: "10px"}}>
             <Link to={`/${productId}`}>
@@ -211,31 +225,44 @@ function Qr() {
         </div>
       
         </div>
+        {status? 
         <div className="container  mt-4" style={{maxWidth: "500px"} }>
-    
-           <div className="card m-3 shadow-lg text-center" style={{borderRadius: "30px", } }>
-                <div className="row align-items-center h-100 text-center">
-                    <div className="col-6" >
-                        <img className=" p-4" src={backendData.image} style={{maxWidth: "200px",borderRadius: "30px" } }></img>
-                    </div>
-                    <div className="card shadow-lg col-6 ml-4 card-body text-white" style={{borderRadius: "30px", backgroundColor: "#28559A"} }>
-                        <p>Таны төлөх дүн: {backendData.price}</p>
-                        <p>Барааны нэр: Ундаа</p>
-                    </div>
+        <div className="card m-3 shadow-lg text-center" style={{borderRadius: "30px", } }>
+            <div className="row align-items-center h-100 text-center">
+                <div className="col-6" >
+                    <img className=" p-4" src={backendData.image} style={{maxWidth: "200px",borderRadius: "30px" } }></img>
+                </div>
+                <div className="card shadow-lg col-6 ml-4 card-body text-white" style={{borderRadius: "30px", backgroundColor: "#28559A"} }>
+                    <p>Таны төлөх дүн: {backendData.price}</p>
+                    <p>Барааны нэр: Ундаа</p>
                 </div>
             </div>
+        </div>
 
 
-            <div className="col-12 text-center mx-4 mt-4 align-items-center">
-            <h5 className="pb-4 text-center mx-4 mt-4">
-                Төлбөрийн мэдээлэл хүлээж байна.</h5>
-                
-                </div>
-                <div className="card text-center " style={{borderRadius: "10px"}}>
-                  <button  onClick={getInvoice} className="btn text-white m-2" style={{ borderRadius: "10px", background: "#28559A",  }}>Төлбөр төлөх</button>  
-                </div>
+     <div className="col-12 text-center mx-4 mt-4 align-items-center">
+     <h5 className="pb-4 text-center mx-4 mt-4">
+         Төлбөрийн мэдээлэл хүлээж байна.</h5>
+         
+         </div>
+         <div className="card text-center " style={{borderRadius: "10px"}}>
+           <button  onClick={getInvoice} className="btn text-white m-2" style={{ borderRadius: "10px", background: "#28559A",  }}>Төлбөр төлөх</button>  
+         </div>
 
-        </div> 
+ </div> : <div className="container  mt-4" style={{maxWidth: "500px"} }>
+        <div className="card m-3 shadow-lg text-center" style={{borderRadius: "30px", } }>
+            <div className="row align-items-center h-100 text-center">
+            <div className="col-12 p-4" >
+                <SpinnerRoundFilled/><h3>Та түр хүлээнэ үү</h3>
+            </div>
+              
+            </div>
+        </div>
+
+
+
+
+ </div>}
         <div>{home ? <Navigate to="/"/> : ""}</div>     
     </div> );
 }
