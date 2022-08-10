@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
+import {Routes, Route, Navigate} from "react-router-dom";
+import React, {useContext, useEffect, useState } from 'react';
 import './App.css';
 import Main from './components/main/main';
 import Payment from './components/payment/payment';
@@ -8,16 +8,11 @@ import Qr from "./components/qr/qr";
 import Test from "./components/TEST/test";
 import Login from "./components/user/login";
 import UserContext from "./components/context/userContext";
-import serviceContext from "./components/context/serviceContext";
-import ServicePage from "./components/servicePage/servicePage"
-import { getDatabase, ref, set, update, get, child, onValue,} from "firebase/database";
 import QrContext from "./components/context/qpayContext";
 
 export default function App() {
   const userCtx = useContext(UserContext);
-  const serviceCtx = useContext(serviceContext);
   const qrCtx = useContext(QrContext);
-  const [serviceValue, setServiceValue] = useState();
 
 
   useEffect(() => {
@@ -29,23 +24,18 @@ export default function App() {
     const qpayRefreshToken = localStorage.getItem("tokenToDataRefresh");
     const qpayExpires = new Date(localStorage.getItem("expireData"));
 
+
     
 
-    const db = getDatabase();
-                const refUrl = ref(db, `data/${userCtx.state.userId}/configuration`)
-                onValue(refUrl, (snapshot) => {
-                  const data = snapshot.val();
-                  setServiceValue(data);
-                });
+    
 
+    
    
 
     
 
     if(token){
       
-      
-
       if (expireDate > new Date()) {
         // Hugatsaa n duusaaagui token baina, avtomat login hiine
         userCtx.loginUserSuccess(token, userId, expiresIn, expireDate, refreshToken)
@@ -66,6 +56,8 @@ export default function App() {
             qrCtx.refreshQpayToken(4000);
     }
 
+
+  
   
 
       
@@ -98,6 +90,7 @@ export default function App() {
      <Route path="/" element={<Login />} />
      <Route exact path="/login" element={<Login />} />
      </>}
+    
       
      
    

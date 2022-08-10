@@ -130,13 +130,13 @@ function Payment() {
         </div>
         <div className="row mx-4 row justify-content-center mt-4">
  
-           <Link to="#" onClick={checkCard}  src="#" className="card shadow-lg col-12 col-md-11 col-lg-5 col-xl-5 m-4  text-center" style={{color: 'inherit', textDecoration: 'inherit' ,maxWidth: "300px", borderRadius: "30px", }}>
+           <Link to="#" onClick={checkCard}  src="#" className="card shadow-lg col-12 col-md-11 col-lg-5 col-xl-5 m-4  text-center" style={{color: 'inherit', textDecoration: 'inherit' , height:"auto", width: "300px", borderRadius: "30px", }}>
             <img className="" src={cart}></img>
                 <h3 className="pb-4">Карт уншуулах</h3>
             </Link>
 
          
-            <Link to={`/qr/${productId}`} onClick={checkData} className="card shadow-lg col-12 text-center m-4" style={{color: 'inherit', textDecoration: 'inherit', maxWidth: "300px", borderRadius: "30px", }}>
+            <Link to={`/qr/${productId}`} onClick={checkData} className="card shadow-lg col-12 text-center m-4" style={{color: 'inherit', textDecoration: 'inherit', width: "300px", borderRadius: "30px", height:"auto", }}>
               
                 <img className="m-4" src={qr}></img>
            

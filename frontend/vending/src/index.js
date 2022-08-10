@@ -1,18 +1,22 @@
-import React from 'react';
+import React  from 'react';
 import ReactDOM from "react-dom/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import './index.css';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
 import { UserStore } from './components/context/userContext';
 import { QrStore } from './components/context/qpayContext';
-import {
-  faTriangleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
+import UserContext from './components/context/userContext';
+
 import { ServiceStore } from './components/context/serviceContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
